@@ -31,4 +31,5 @@ urlpatterns = [
     path('saludo-desde-template/', saludo_desde_template),
 
     path('products/', include('products.urls')), # Para poder ordenar las urls de products
+    path('orders/', include('orders.urls')), # Para poder ordenar las urls de orders
 ]
