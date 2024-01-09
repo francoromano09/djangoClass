@@ -10,5 +10,5 @@ def list_orders(request):
     return render(request, 'orders/list_orders.html', context = context)
 # Create your views here.
 def create_order(request):
-    Order.objects.create(client='Franco',product='Curso Python',payment_method='Card')
+    Order.objects.create(client='Karen',product='Curso Python',payment_method='Cash')
     return HttpResponse('Orden creada')
