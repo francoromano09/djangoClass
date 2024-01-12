@@ -48,6 +48,7 @@ MY_APPS = [
     'products',
     'orders',
     'providers',
+    'users',
 ] #Ordenar mas el codigo con mis apps
 INSTALLED_APPS = BASE_APPS + THIRD__APPS + MY_APPS
 

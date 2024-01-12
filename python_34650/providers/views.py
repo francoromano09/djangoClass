@@ -1,14 +1,22 @@
+from django.views.generic import ListView,CreateView,DeleteView,UpdateView
 from django.shortcuts import render
+
 from providers.models import Provider
 from providers.forms import ProviderForm
 
 def providers_list(request):
+
     providers = Provider.objects.filter(is_active=True) #Alineacion logica
     context = {
         'providers':providers
     }
     return render(request, 'providers/providers_list.html',context=context)
-# Create your views here.
+
+class ProvidersListView(ListView):
+    model = Provider
+    template_name = 'providers/providers_list.html'
+    queryset = Provider.objects.filter(is_active=True)
+    
 def providers_create(request):
     if request.method == 'GET':
         context = {
@@ -39,8 +47,14 @@ def providers_create(request):
         
         #Mostramos el formulario con los errores
 
-def providers_update(request,id):
-    provider = Provider.objects.get(id=id)
+class ProviderCreateView(CreateView):
+    model = Provider
+    template_name = 'providers/create_provider.html'
+    fields = '__all__'
+    success_url = '/providers/providers-list/'
+
+def providers_update(request,pk):
+    provider = Provider.objects.get(id=pk)
 
     if request.method == 'GET':
         context = {
@@ -77,3 +91,22 @@ def providers_update(request,id):
     return render(request, 'providers/update_provider.html',context=context)
         
         #Mostramos el formulario con los errores
+
+class ProviderUpdateView(UpdateView):
+    model = Provider
+    template_name = 'providers/update_provider.html'
+    fields = '__all__'
+    success_url = '/providers/providers-list/'
+
+def providers_delete(request,pk): #provider.delete()
+    provider = Provider.objects.get(id=pk)
+    if request.method == 'POST':
+        provider.delete()
+
+    return render(request, 'providers/delete_provider.html',context={})
+
+
+# class ProviderDeleteView(DeleteView):
+#     model = Provider
+#     template_name = 'providers/delete_provider.html'
+#     success_url = '/providers/providers-list/'

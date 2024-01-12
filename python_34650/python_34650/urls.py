@@ -18,4 +18,5 @@ urlpatterns = [
     path('products/', include('products.urls')), # Para poder ordenar las urls de products
     path('orders/', include('orders.urls')), # Para poder ordenar las urls de orders
     path('providers/',include('providers.urls')),
+    path('users/',include('users.urls')),
 ]
