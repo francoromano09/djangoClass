@@ -1,4 +1,5 @@
 from django.views.generic import ListView,CreateView,DeleteView,UpdateView
+from django.contrib.auth.mixins import LoginRequiredMixin
 from django.shortcuts import render
 
 from providers.models import Provider
@@ -12,7 +13,7 @@ def providers_list(request):
     }
     return render(request, 'providers/providers_list.html',context=context)
 
-class ProvidersListView(ListView):
+class ProvidersListView(LoginRequiredMixin,ListView):
     model = Provider
     template_name = 'providers/providers_list.html'
     queryset = Provider.objects.filter(is_active=True)
@@ -74,11 +75,11 @@ def providers_update(request,pk):
         form = ProviderForm(request.POST)
         if form.is_valid():
             #Actualizamos el producto
-            provider.name = form.cleaned_data['name'],
-            provider.address = form.cleaned_data['address'],
-            provider.phone_number = form.cleaned_data['phone_number'],
-            provider.email = form.cleaned_data['email'],
-            provider.condition = form.cleaned_data['condition'],
+            provider.name = form.cleaned_data['name']
+            provider.address = form.cleaned_data['address']
+            provider.phone_number = form.cleaned_data['phone_number']
+            provider.email = form.cleaned_data['email']
+            provider.condition = form.cleaned_data['condition']
             provider.save()
         context = {
             'message':'Proveedor Actualizado exitosamente'

@@ -1,9 +1,11 @@
+from django.contrib.auth.decorators import login_required
 from django.shortcuts import render
 from django.http import HttpResponse
 
 from products.models import Products,Categoria
 from products.forms import ProductForm
 
+@login_required     #decoradores
 def create_product(request):
    if request.method == 'GET':
     context = {
@@ -49,6 +51,7 @@ def create_category(request,name):
     Categoria.objects.create(name=name)
     return HttpResponse('Categoria creada')
 
+@login_required     #decoradores
 def list_categories(request):
 
     all_categories = Categoria.objects.all()
