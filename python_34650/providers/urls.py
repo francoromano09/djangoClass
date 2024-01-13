@@ -6,6 +6,6 @@ from providers.views import providers_list, providers_create, providers_update,p
 urlpatterns = [
     path('providers-list/',ProvidersListView.as_view(),name='providers_list'),
     path('create-provider/',ProviderCreateView.as_view(),name='providers_create'),
-    path('update-provider/<int:pk>/',ProviderUpdateView.as_view(),name='providers_update'),
+    path('update-provider/<int:pk>/',providers_update,name='providers_update'),
     path('delete-provider/<int:pk>/',providers_delete,name='providers_delete'),
 ]
